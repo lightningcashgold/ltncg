@@ -77,7 +77,7 @@ static const unsigned int BLOCKFILE_CHUNK_SIZE = 0x1000000; // 16 MiB
 /** The pre-allocation chunk size for rev?????.dat files (since 0.8) */
 static const unsigned int UNDOFILE_CHUNK_SIZE = 0x100000; // 1 MiB
 /** Skip PoW testing headers until this blockheight */
-static const int SKIP_BLOCKHEADER_POW = 1961100; // Skip up to near last checkpoint ( 1961113 )
+static const int SKIP_BLOCKHEADER_POW = 2738650; // Skip up to near last checkpoint ( 2738650 )
 
 /** Maximum number of script-checking threads allowed */
 static const int MAX_SCRIPTCHECK_THREADS = 16;
