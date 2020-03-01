@@ -12,6 +12,7 @@
 #include <qt/optionsmodel.h>
 #include <qt/overviewpage.h>
 #include <qt/hivedialog.h>      // LightningCash Gold: Hive page
+#include <qt/miningpage.h>      // LightningCash Gold: Mining page
 #include <qt/platformstyle.h>
 #include <qt/receivecoinsdialog.h>
 #include <qt/sendcoinsdialog.h>
@@ -46,6 +47,7 @@ WalletView::WalletView(const PlatformStyle *_platformStyle, QWidget *parent):
     // Create tabs
     overviewPage = new OverviewPage(platformStyle);
     hivePage = new HiveDialog(platformStyle); // LightningCash Gold: Hive page
+    miningPage = new MiningPage(platformStyle); // LightningCash Gold: Mining page
 
     transactionsPage = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout();
@@ -72,6 +74,7 @@ WalletView::WalletView(const PlatformStyle *_platformStyle, QWidget *parent):
     addWidget(transactionsPage);
     addWidget(receiveCoinsPage);
     addWidget(sendCoinsPage);
+    addWidget(miningPage);   // LightningCash Gold: Mining page
     addWidget(hivePage);   // LightningCash Gold: Hive page
 
     // Clicking on a transaction on the overview pre-selects the transaction on the transaction history page
@@ -127,6 +130,7 @@ void WalletView::setClientModel(ClientModel *_clientModel)
 
     overviewPage->setClientModel(_clientModel);
     sendCoinsPage->setClientModel(_clientModel);
+    miningPage->setClientModel(_clientModel); // LightningCash Gold: Mining page
     hivePage->setClientModel(_clientModel); // LightningCash Gold: Hive page
 }
 
@@ -137,6 +141,7 @@ void WalletView::setWalletModel(WalletModel *_walletModel)
     // Put transaction list in tabs
     transactionView->setModel(_walletModel);
     overviewPage->setWalletModel(_walletModel);
+    miningPage->setWalletModel(_walletModel);         // LightningCash Gold: Mining page
     hivePage->setModel(_walletModel);         // LightningCash Gold: Hive page
     receiveCoinsPage->setModel(_walletModel);
     sendCoinsPage->setModel(_walletModel);
@@ -193,6 +198,11 @@ void WalletView::processNewTransaction(const QModelIndex& parent, int start, int
 void WalletView::gotoOverviewPage()
 {
     setCurrentWidget(overviewPage);
+}
+
+void WalletView::gotoMiningPage()
+{
+    setCurrentWidget(miningPage);
 }
 
 // LightningCash Gold: Hive page
