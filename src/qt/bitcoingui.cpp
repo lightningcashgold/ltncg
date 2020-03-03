@@ -129,7 +129,7 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
         move(QApplication::desktop()->availableGeometry().center() - frameGeometry().center());
     }
 
-    QString windowTitle = tr("Lightning Cash Gold - "); // LightningCash Gold: Don't use package name here; we want coin name with a space in window titles.
+    QString windowTitle = tr("LightningCash Gold - "); // LightningCash Gold: Don't use package name here; we want coin name with a space in window titles.
 #ifdef ENABLE_WALLET
     enableWallet = WalletModel::isWalletEnabled();
 #endif // ENABLE_WALLET
