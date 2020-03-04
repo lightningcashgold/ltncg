@@ -92,7 +92,7 @@ private:
 
     QMenuBar *appMenuBar;
     QAction *overviewAction;
-    QAction *miningAction;                // LightningCash Gold: Mining page
+   // QAction *miningAction;                // LightningCash Gold: Mining page
     QAction *hiveAction;                // LightningCash Gold: Hive page
     QAction *importPrivateKeyAction;    // LightningCash Gold: Key import helper
     QAction *historyAction;
@@ -207,7 +207,7 @@ private Q_SLOTS:
     /** Switch to send coins page */
     void gotoSendCoinsPage(QString addr = "");
 
-    void gotoMiningPage();
+//    void gotoMiningPage();
 
     // LightningCash Gold: Switch to hive page
     void gotoHivePage();

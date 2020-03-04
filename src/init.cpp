@@ -527,8 +527,8 @@ std::string HelpMessage(HelpMessageMode mode)
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/Lightningcash-dev/lightningcash-gold>";
-    const std::string URL_WEBSITE = "<http://lightningcash-gold.com>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/lightningcashgold.com/ltncg>";
+    const std::string URL_WEBSITE = "<https://www.ltncg.com>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2011, COPYRIGHT_YEAR) + " ") + "\n" +
            "\n" +
@@ -540,7 +540,7 @@ std::string LicenseInfo()
                URL_SOURCE_CODE) +
            "\n" +
            "\n" +
-           _("This is experimental software.") + "\n" +
+           _("This is experimental software.") + "\n\n" +
            strprintf(_("Distributed under the MIT software license, see the accompanying file %s or %s"), "COPYING", "<https://opensource.org/licenses/MIT>") + "\n" +
            "\n" +
            strprintf(_("This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit %s and cryptographic software written by Eric Young and UPnP software written by Thomas Bernard."), "<https://www.openssl.org>") +
@@ -1040,12 +1040,15 @@ bool AppInitParameterInteraction()
     else if (nScriptCheckThreads > MAX_SCRIPTCHECK_THREADS)
         nScriptCheckThreads = MAX_SCRIPTCHECK_THREADS;
 
+    // force pruning 
+    nPruneTarget = (uint64_t) 550 * 1024 * 1024;
+
     // block pruning; get the amount of disk space (in MiB) to allot for block & undo files
     int64_t nPruneArg = gArgs.GetArg("-prune", 0);
     if (nPruneArg < 0) {
         return InitError(_("Prune cannot be configured with a negative value."));
     }
-    nPruneTarget = (uint64_t) nPruneArg * 1024 * 1024;
+    //nPruneTarget = (uint64_t) nPruneArg * 1024 * 1024;
     if (nPruneArg == 1) {  // manual pruning: -prune=1
         LogPrintf("Block pruning enabled.  Use RPC call pruneblockchain(height) to manually prune block and undo files.\n");
         nPruneTarget = std::numeric_limits<uint64_t>::max();

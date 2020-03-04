@@ -71,7 +71,7 @@ public Q_SLOTS:
     /** Switch to send coins page */
     void gotoSendCoinsPage(QString addr = "");
 
-    void gotoMiningPage();
+//    void gotoMiningPage();
 
     // LightningCash Gold: Switch to hive page
     void gotoHivePage();
