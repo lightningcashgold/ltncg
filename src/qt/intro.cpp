@@ -133,12 +133,12 @@ Intro::Intro(QWidget *parent) :
 
     uint64_t pruneTarget = std::max<int64_t>(0, gArgs.GetArg("-prune", 0));
     requiredSpace = BLOCK_CHAIN_SIZE;
-    QString storageRequiresMsg = tr("At least 1.0 GB of data will be stored in this directory, and it will grow over time.");
+    QString storageRequiresMsg = tr("At least %1 GB of data will be stored in this directory, and it will grow over time.");
     if (pruneTarget) {
         uint64_t prunedGBs = std::ceil(pruneTarget * 1024 * 1024.0 / GB_BYTES);
         if (prunedGBs <= requiredSpace) {
             requiredSpace = prunedGBs;
-            storageRequiresMsg = tr("Approximately 1.0 GB of data will be stored in this directory.");
+            storageRequiresMsg = tr("Approximately %1 GB of data will be stored in this directory.");
         }
         ui->lblExplanation3->setVisible(true);
     } else {

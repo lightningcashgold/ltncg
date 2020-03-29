@@ -392,7 +392,6 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-listen", _("Accept connections from outside (default: 1 if no -proxy or -connect)"));
     strUsage += HelpMessageOpt("-listenonion", strprintf(_("Automatically create Tor hidden service (default: %d)"), DEFAULT_LISTEN_ONION));
     strUsage += HelpMessageOpt("-maxconnections=<n>", strprintf(_("Maintain at most <n> connections to peers (default: %u)"), DEFAULT_MAX_PEER_CONNECTIONS));
-    strUsage += HelpMessageOpt("-maxoutboundconnections=<n>", strprintf(_("Maximum number of automatic outgoing connections (default: %u)"), DEFAULT_MAX_OUTBOUND_CONNECTIONS));   // Parameterisation of max outbound connections
     strUsage += HelpMessageOpt("-maxreceivebuffer=<n>", strprintf(_("Maximum per-connection receive buffer, <n>*1000 bytes (default: %u)"), DEFAULT_MAXRECEIVEBUFFER));
     strUsage += HelpMessageOpt("-maxsendbuffer=<n>", strprintf(_("Maximum per-connection send buffer, <n>*1000 bytes (default: %u)"), DEFAULT_MAXSENDBUFFER));
     strUsage += HelpMessageOpt("-maxtimeadjustment", strprintf(_("Maximum allowed median peer time offset adjustment. Local perspective of time may be influenced by peers forward or backward by this amount. (default: %u seconds)"), DEFAULT_MAX_TIME_ADJUSTMENT));
@@ -518,7 +517,7 @@ std::string HelpMessage(HelpMessageMode mode)
     }
 
     // LightningCash-Gold: Hive: Mining optimisations
-    strUsage += HelpMessageOpt("-hivecheckdelay=<ms>", strprintf(_("Time between Hive checks in ms. This should be left at default unless performance degradation is observed (default: %u)"), DEFAULT_HIVE_CHECK_DELAY));
+    strUsage += HelpMessageOpt("-hivecheckdelay", strprintf(_("Time between Hive checks in ms. This should be left at default unless performance degradation is observed (default: %u)"), DEFAULT_HIVE_CHECK_DELAY));
     strUsage += HelpMessageOpt("-hivecheckthreads=<threads>", strprintf(_("Number of threads to use when checking bees, -1 for all available cores, or -2 for one less than all available cores (default: %u)"), DEFAULT_HIVE_THREADS));
     strUsage += HelpMessageOpt("-hiveearlyabort", strprintf(_("Abort Hive checking as quickly as possible when a new block comes in. This should be left enabled unless performance degradation is observed. (default: %u)"), DEFAULT_HIVE_EARLY_OUT));
 
@@ -527,8 +526,8 @@ std::string HelpMessage(HelpMessageMode mode)
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/lightningcashgold.com/ltncg>";
-    const std::string URL_WEBSITE = "<https://www.ltncg.com>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/Lightningcash-dev/lightningcash-gold>";
+    const std::string URL_WEBSITE = "<http://lightningcash-gold.com>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2011, COPYRIGHT_YEAR) + " ") + "\n" +
            "\n" +
@@ -540,7 +539,7 @@ std::string LicenseInfo()
                URL_SOURCE_CODE) +
            "\n" +
            "\n" +
-           _("This is experimental software.") + "\n\n" +
+           _("This is experimental software.") + "\n" +
            strprintf(_("Distributed under the MIT software license, see the accompanying file %s or %s"), "COPYING", "<https://opensource.org/licenses/MIT>") + "\n" +
            "\n" +
            strprintf(_("This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit %s and cryptographic software written by Eric Young and UPnP software written by Thomas Bernard."), "<https://www.openssl.org>") +
@@ -1040,15 +1039,12 @@ bool AppInitParameterInteraction()
     else if (nScriptCheckThreads > MAX_SCRIPTCHECK_THREADS)
         nScriptCheckThreads = MAX_SCRIPTCHECK_THREADS;
 
-    // force pruning 
-    nPruneTarget = (uint64_t) 550 * 1024 * 1024;
-
     // block pruning; get the amount of disk space (in MiB) to allot for block & undo files
     int64_t nPruneArg = gArgs.GetArg("-prune", 0);
     if (nPruneArg < 0) {
         return InitError(_("Prune cannot be configured with a negative value."));
     }
-    //nPruneTarget = (uint64_t) nPruneArg * 1024 * 1024;
+    nPruneTarget = (uint64_t) nPruneArg * 1024 * 1024;
     if (nPruneArg == 1) {  // manual pruning: -prune=1
         LogPrintf("Block pruning enabled.  Use RPC call pruneblockchain(height) to manually prune block and undo files.\n");
         nPruneTarget = std::numeric_limits<uint64_t>::max();
@@ -1704,7 +1700,7 @@ bool AppInitMain()
     CConnman::Options connOptions;
     connOptions.nLocalServices = nLocalServices;
     connOptions.nMaxConnections = nMaxConnections;
-    connOptions.nMaxOutbound = std::min((int)gArgs.GetArg("-maxoutboundconnections", DEFAULT_MAX_OUTBOUND_CONNECTIONS), connOptions.nMaxConnections);    // Parameterisation of max outbound connections
+    connOptions.nMaxOutbound = std::min(MAX_OUTBOUND_CONNECTIONS, connOptions.nMaxConnections);
     connOptions.nMaxAddnode = MAX_ADDNODE_CONNECTIONS;
     connOptions.nMaxFeeler = 1;
     connOptions.nBestHeight = chain_active_height;

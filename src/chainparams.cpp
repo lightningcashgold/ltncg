@@ -169,10 +169,10 @@ public:
 	consensus.remvariableForkBlock = 118956;
         
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000006a8076375e788d");  // LightningCash Gold : block 2738650
+        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000006aabf67540a343");  // LightningCash Gold : block 4278260
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x33a3d4e286293e63f6dee4092524a9dbb771c9efab7c13c8bbdc0879632a8d05"); // LightningCash Gold: block 2738650
+        consensus.defaultAssumeValid = uint256S("0xb92be965dd4615f3280acc5d775b1d65dcfd66a05ca37c087ab8bcf834c30f91"); // LightningCash Gold: block 4278260
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -192,8 +192,7 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0xfe90e5f71db801cab3064947169305a13c8107e645f9387e211fd73f266a581a"));
 
         // Note that of those with the service bits flag, most only support a subset of possible options
-        vSeeds.clear();
-        vSeeds.emplace_back("seeds.ltncg.com");
+        //vSeeds.emplace_back("seeds.litecoinca.sh");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,28);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
@@ -204,8 +203,9 @@ public:
 
         bech32_hrp = "ltncg";
 
-//        vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
-//        vFixedSeeds.clear();
+        vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
+        //vFixedSeeds.clear(); // no seeds yet ----> now yes
+        //vSeeds.clear();
 
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
@@ -217,16 +217,16 @@ public:
                 {  310001, uint256S("0x5d6c2450c49e4856bcfb9a5bd8668cad06fc5daecfe9fb617847c0776e5a7e8e")},
                 {  1961113, uint256S("0xa9ff7a5f06b07650d6ebce31c6941979621acd6e686af2c2e8bd34a1015dbd8f")},
                 {  2738650, uint256S("0x33a3d4e286293e63f6dee4092524a9dbb771c9efab7c13c8bbdc0879632a8d05")},
-                {  3841482, uint256S("0x855d021ba113a044eb99ea5c34c5ca82d83bdbef14f87ff1b1fc136aa038b2de")}
+                {  4278260, uint256S("0xb92be965dd4615f3280acc5d775b1d65dcfd66a05ca37c087ab8bcf834c30f91")},
             }
         };
 
         chainTxData = ChainTxData{
             // Data at genesis block.
-            1565280496, // * UNIX timestamp of last known number of transactions
-            436284,   // * total number of transactions between genesis and that timestamp
+            1585501516, // * UNIX timestamp of last known number of transactions
+            4579660,   // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
-            0.1653492693215487        // * estimated number of transactions per second after that timestamp
+            0.135965613        // * estimated number of transactions per second after that timestamp
         };
     }
 };
@@ -326,11 +326,10 @@ public:
 	consensus.remvariableForkBlock = 2000000; // never happens
 
         // The best chain should have at least this much work.
-        //consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000000");  // LightningCash Gold
-        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000006a9c6aa7960807");  // LightningCash Gold block 3841482
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000000");  // LightningCash Gold
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x855d021ba113a044eb99ea5c34c5ca82d83bdbef14f87ff1b1fc136aa038b2de"); // LightningCash Gold: block 3841482
+        consensus.defaultAssumeValid = uint256S("0xa1d8b56639865905eef9205e148bad0c6a4b2026b1753c76558bb735c3e9735c"); // LightningCash Gold: 0
 
 	pchMessageStart[0] = 0xd9;
         pchMessageStart[1] = 0xf6;
@@ -345,7 +344,7 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0xfe90e5f71db801cab3064947169305a13c8107e645f9387e211fd73f266a581a"));
 
         vFixedSeeds.clear();
-        vSeeds.emplace_back("testseeds.ltncg.com");
+        //vSeeds.emplace_back("testseeds.litecoinca.sh");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,127);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);

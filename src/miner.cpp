@@ -712,7 +712,6 @@ bool BusyBees(const Consensus::Params& consensusParams, int height) {
     // Find bin size
 
     
-    std::vector<CBeeCreationTransactionInfo> potentialBcts = pwallet->GetBCTs(false, false, consensusParams);
     std::vector<CBeeCreationTransactionInfo> bcts;
 
     if ((chainActive.Tip()->nHeight) >= nSpeedFork) {
@@ -748,12 +747,11 @@ bool BusyBees(const Consensus::Params& consensusParams, int height) {
 //    int beesChecked = 0;
 //    uint32_t bestHashBee;
 //    bool solutionFound = false;
-    for (std::vector<CBeeCreationTransactionInfo>::const_iterator it = potentialBcts.begin(); it != potentialBcts.end(); it++) {
+    for (std::vector<CBeeCreationTransactionInfo>::const_iterator it = bcts.begin(); it != bcts.end(); it++) {
         CBeeCreationTransactionInfo bct = *it;
         // Skip immature and dead bees
         if (bct.beeStatus != "mature")
             continue;
-       bcts.push_back(bct);
        totalBees += bct.beeCount;
     }
 

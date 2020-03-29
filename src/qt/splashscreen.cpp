@@ -122,7 +122,7 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
 
     // LightningCash Gold: Hive: May the hive bee with you
     pixPaint.setFont(QFont(font, 15*fontFactor));
-    pixPaint.drawText(302, 150, "Faster, Stronger, Safer!");
+    pixPaint.drawText(302, 150, "May the Hive bee with you");
     
     pixPaint.end();
 

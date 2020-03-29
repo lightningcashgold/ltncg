@@ -16,7 +16,6 @@
 #include <qt/walletmodel.h>
 #include <qt/hivetablemodel.h>  // LightningCash Gold: Hive
 #include <qt/hivedialog.h>      // LightningCash Gold: Hive: For formatLargeNoLocale()
-//#include <qt/miningpage.h>      // LightningCash Gold: miner
 
 #include <QAbstractItemDelegate>
 #include <QPainter>

@@ -13,7 +13,6 @@
 class BitcoinGUI;
 class ClientModel;
 class OverviewPage;
-//class MiningPage;
 class HiveDialog;     // LightningCash Gold: Hive page
 class PlatformStyle;
 class ReceiveCoinsDialog;
@@ -64,7 +63,6 @@ private:
     WalletModel *walletModel;
 
     OverviewPage *overviewPage;
-  //  MiningPage *miningPage;
     HiveDialog *hivePage;     // LightningCash Gold: Hive page
     QWidget *transactionsPage;
     ReceiveCoinsDialog *receiveCoinsPage;
@@ -86,8 +84,6 @@ public Q_SLOTS:
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage(QString addr = "");
-
-//    void gotoMiningPage();
 
     // LightningCash Gold: Switch to hive page
     void gotoHivePage();

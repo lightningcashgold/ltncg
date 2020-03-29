@@ -90,7 +90,6 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
     progressDialog(0),
     appMenuBar(0),
     overviewAction(0),
-    //miningAction(0),
     hiveAction(0),              // LightningCash Gold: Hive page
     importPrivateKeyAction(0),  // LightningCash Gold: Key import helper
     historyAction(0),
@@ -129,7 +128,7 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
         move(QApplication::desktop()->availableGeometry().center() - frameGeometry().center());
     }
 
-    QString windowTitle = tr("LightningCash Gold - "); // LightningCash Gold: Don't use package name here; we want coin name with a space in window titles.
+    QString windowTitle = tr("Lightning Cash Gold - "); // LightningCash Gold: Don't use package name here; we want coin name with a space in window titles.
 #ifdef ENABLE_WALLET
     enableWallet = WalletModel::isWalletEnabled();
 #endif // ENABLE_WALLET
@@ -325,13 +324,6 @@ void BitcoinGUI::createActions()
     historyAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_4));
     tabGroup->addAction(historyAction);
 
-    /*miningAction = new QAction(platformStyle->SingleColorIcon(":/icons/overview"), tr("&CPU Mining"), this);
-    miningAction->setStatusTip(tr("Show CPU mining options"));
-    miningAction->setToolTip(miningAction->statusTip());
-    miningAction->setCheckable(true);
-    miningAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_4));
-    tabGroup->addAction(miningAction);
-*/
     // LightningCash Gold: Hive page
     hiveAction = new QAction(platformStyle->SingleColorIcon(":/icons/bee"), tr("The &Hive"), this);
     hiveAction->setStatusTip(tr("Hive Mining center"));
@@ -345,8 +337,6 @@ void BitcoinGUI::createActions()
     // can be triggered from the tray menu, and need to show the GUI to be useful.
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
-//    connect(miningAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-//    connect(miningAction, SIGNAL(triggered()), this, SLOT(gotoMiningPage()));
     connect(hiveAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));  // LightningCash Gold: Hive page
     connect(hiveAction, SIGNAL(triggered()), this, SLOT(gotoHivePage()));           // LightningCash Gold: Hive page
     connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
@@ -500,7 +490,6 @@ void BitcoinGUI::createToolBars()
         toolbar->addAction(sendCoinsAction);
         toolbar->addAction(receiveCoinsAction);
         toolbar->addAction(historyAction);
-       // toolbar->addAction(miningAction);
         toolbar->addAction(hiveAction);     // LightningCash Gold: Hive page
         overviewAction->setChecked(true);
     }
@@ -596,7 +585,6 @@ void BitcoinGUI::removeAllWallets()
 void BitcoinGUI::setWalletActionsEnabled(bool enabled)
 {
     overviewAction->setEnabled(enabled);
-    //miningAction->setEnabled(enabled);
     sendCoinsAction->setEnabled(enabled);
     sendCoinsMenuAction->setEnabled(enabled);
     receiveCoinsAction->setEnabled(enabled);
@@ -727,13 +715,6 @@ void BitcoinGUI::gotoOverviewPage()
     overviewAction->setChecked(true);
     if (walletFrame) walletFrame->gotoOverviewPage();
 }
-
-/*
-void BitcoinGUI::gotoMiningPage()
-{
-    miningAction->setChecked(true);
-    if (walletFrame) walletFrame->gotoMiningPage();
-}*/
 
 // LightningCash Gold: Switch to hive page
 void BitcoinGUI::gotoHivePage()
